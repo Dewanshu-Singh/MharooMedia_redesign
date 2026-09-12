@@ -1,69 +1,109 @@
 .works-section {
-  padding: 60px 0;
+  padding: 80px 0;
   position: relative;
   overflow: hidden;
+  background: transparent;
 }
 
-.works-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--accent-red);
-  margin-bottom: 10px;
+.works-header {
+  margin-bottom: 50px;
 }
 
 .works-subtitle {
   color: var(--text-secondary);
-  font-size: 1.2rem;
-  margin-bottom: 32px;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.1rem;
 }
 
-.works-carousel {
-  position: relative;
-  height: 450px;
+/* The expanding accordion container */
+.accordion-gallery {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1000px;
-  max-width: 1000px;
+  width: 90vw;
+  max-width: 1400px;
+  height: 60vh;
   margin: 0 auto;
+  gap: 15px;
 }
 
-.works-card {
-  position: absolute;
-  width: 45%;
-  height: 100%;
-  border-radius: 24px;
+/* Individual pillar items */
+.accordion-item {
+  position: relative;
+  flex: 1; /* Default: all take equal space */
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  /* Smooth, bouncy flex transition */
+  transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+  /* Unselected pillars are grayscale and dimmed */
+  filter: grayscale(80%) brightness(0.4);
 }
 
-.works-card img {
+/* When active, it expands massively */
+.accordion-item.active {
+  flex: 5; 
+  filter: grayscale(0%) brightness(1);
+}
+
+/* Ensure images don't squash but cover the space perfectly */
+.accordion-item img {
   width: 100%;
-  height: 120%;
+  height: 100%;
   object-fit: cover;
-  transform: translateY(-10%);
+  display: block;
 }
 
+/* The text overlay that appears when expanded */
+.accordion-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 50px 30px 30px 30px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: 0.2s; /* Wait slightly for expansion to finish */
+  pointer-events: none; /* Don't block hover events */
+}
+
+/* Fade in text when active */
+.accordion-item.active .accordion-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.accordion-overlay h3 {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* Responsive adjustments */
 @media (max-width: 992px) {
-  .works-carousel {
-    height: 350px;
-    width: 100%;
-  }
-  .works-card {
-    width: 50%;
+  .accordion-gallery {
+    height: 50vh;
+    width: 95vw;
   }
 }
 
 @media (max-width: 768px) {
-  .works-carousel {
-    height: 250px;
+  .accordion-gallery {
+    /* Stack them vertically on mobile for a vertical expanding accordion */
+    flex-direction: column;
+    height: 80vh;
   }
-  .works-title {
-    font-size: 2.2rem;
+  .accordion-item {
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   }
-  .works-card {
-    width: 60%;
+  .accordion-overlay {
+    padding: 20px;
+  }
+  .accordion-overlay h3 {
+    font-size: 1.2rem;
   }
 }

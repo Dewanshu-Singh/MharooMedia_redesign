@@ -25,7 +25,7 @@ const Services = () => {
         <div className="services-showcase-container">
           
           <div className="services-left">
-            <h2 className="section-title showcase-title">Our Expertise</h2>
+            <h2 className="section-title showcase-title">Our <span className="highlight">Expertise</span></h2>
             <p className="showcase-subtitle">Six Ways We Scale Your Brand.</p>
             
             <div className="services-list">
